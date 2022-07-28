@@ -12,6 +12,7 @@ builds:
     id: "vault-token-helper"
     main: ./cmd/vault-token-helper/main.go
     ldflags:
+      - "-s -w"
       - "-extldflags '-static'"
       - "-X 'github.com/ilijamt/vault-token-helper.BuildVersion={{ .Version }}'"
       - "-X 'github.com/ilijamt/vault-token-helper.BuildHash={{ .FullCommit }}'"
