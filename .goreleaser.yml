@@ -1,0 +1,62 @@
+project_name: "vault-token-helper"
+
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+    - go mod download
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    id: "vault-token-helper"
+    main: ./cmd/vault-token-helper/main.go
+    ldflags:
+      - "-extldflags '-static'"
+      - "-X 'github.com/ilijamt/vault-token-helper.BuildVersion={{ .Version }}'"
+      - "-X 'github.com/ilijamt/vault-token-helper.BuildHash={{ .FullCommit }}'"
+      - "-X 'github.com/ilijamt/vault-token-helper.BuildDate={{ .Date }}'"
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+    goos:
+      - linux
+      - darwin
+      - windows
+
+checksum:
+  name_template: '{{ .ProjectName }}_checksums.txt'
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - Merge pull request
+      - Merge branch
+
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    replacements:
+      386: i386
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+
+release:
+  github:
+    owner: ilijamt
+    name: vault-token-helper
+
+brews:
+  - tap:
+      owner: ilijamt
+      name: homebrew-tap
+    folder: Formula
+    homepage:  https://github.com/ilijamt/vault-token-helper
+    description: A token helper is an external program that Vault calls to save, retrieve or erase a saved token.
+    test: |
+      system "#{bin}/vault-token-helper version"
