@@ -42,7 +42,7 @@ jobs:
           name: govulncheck-${{ matrix.go }}
           path: govulncheck-${{ matrix.go }}.log
       - name: Build
-        run: go build -v ./cmd/vht
+        run: go build -v ./cmd/vault-token-helper
       - name: Test
         run: go test -v -json ./... | tee -a go-test-${{ matrix.go }}.json
       - uses: actions/upload-artifact@v3
