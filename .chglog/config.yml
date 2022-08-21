@@ -11,12 +11,14 @@ options:
          - fix
          - perf
          - refactor
+         - test
   commit_groups:
      title_maps:
        feat: Features
        fix: Bug Fixes
        perf: Performance Improvements
        refactor: Code Refactoring
+       test: Tests
   header:
     pattern: "^(\\w*)\\:\\s(.*)$"
     pattern_maps:
