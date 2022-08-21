@@ -27,3 +27,11 @@ func id(vaultAddr *url.URL) string {
 	var id = fmt.Sprintf("%s%s", vaultAddr.Hostname(), vaultAddr.RequestURI())
 	return fmt.Sprintf("%x", md5.Sum([]byte(id)))
 }
+
+func preparePath(vaultAddr *url.URL, tokenDir string) (path string, err error) {
+	if path, err = getPath(tokenDir, vaultAddr); err != nil {
+		return path, err
+	}
+	err = localStorage(tokenDir)
+	return path, err
+}

@@ -2,9 +2,9 @@ package command
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
-	"io/ioutil"
 	"os"
+
+	"github.com/spf13/cobra"
 )
 
 // setupCmd represents the erase command
@@ -16,10 +16,10 @@ var setupCmd = &cobra.Command{
 - Add/Update a token_helper directive with the current helper
 `,
 	PreRunE: validateHandler,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		var ex, _ = os.Executable()
 		var payload = fmt.Sprintf("token_helper = \"%s\"\n", ex)
-		ioutil.WriteFile(conf.configPath, []byte(payload), 0650)
+		return os.WriteFile(conf.configPath, []byte(payload), 0650)
 	},
 }
 
