@@ -1,6 +1,8 @@
 package localpath
 
 import (
+	"bytes"
+	"encoding/gob"
 	"fmt"
 	"net/url"
 	"os"
@@ -58,7 +60,10 @@ func (l LocalPath) Get(vaultAddr *url.URL) (token string, err error) {
 	if _, err = os.Stat(path); err == nil {
 		var payload []byte
 		if payload, err = os.ReadFile(path); err == nil {
-			token = string(payload)
+			var data handler.Data
+			if err = gob.NewDecoder(bytes.NewReader(payload)).Decode(&data); err == nil {
+				token = data.Token
+			}
 		}
 		return token, err
 	}
@@ -75,7 +80,13 @@ func (l LocalPath) Store(token string, vaultAddr *url.URL) (err error) {
 	if path, err = preparePath(vaultAddr, l.TokenDirectory); err != nil {
 		return err
 	}
-	return os.WriteFile(path, []byte(token), 0600)
+	var data = handler.Data{
+		Address: vaultAddr.String(),
+		Token:   token,
+	}
+	var payload bytes.Buffer
+	_ = gob.NewEncoder(&payload).Encode(data)
+	return os.WriteFile(path, payload.Bytes(), 0600)
 }
 
 // Erase removes a token associated with the vaultAddr, and returns error if it fails to erase the
