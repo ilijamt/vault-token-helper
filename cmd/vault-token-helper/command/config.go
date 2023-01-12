@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// configCmd represents the erase command
+// configCmd represents the config command
 var configCmd = &cobra.Command{
 	Use:     "config",
 	Short:   "Show current configuration.",

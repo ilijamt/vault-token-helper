@@ -35,3 +35,4 @@ fabric.properties
 *.out
 dist/
 /vault-token-helper
+/coverage.html

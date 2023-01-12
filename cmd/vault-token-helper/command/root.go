@@ -27,6 +27,7 @@ type config struct {
 	handler    string
 	configPath string
 	vaultAddr  *url.URL
+	dryRun     bool
 }
 
 var conf config

@@ -51,8 +51,24 @@ func TestLocalPath(t *testing.T) {
 		require.NoError(t, err)
 		require.NotEmpty(t, token)
 
+		var items []handler.Data
+		items, err = h.List()
+		require.Len(t, items, 1)
+
+		items, err = h.Purge(true)
+		require.Len(t, items, 1)
+
 		// Remove the token
 		require.NoError(t, h.Erase(u))
+
+		// Store a token
+		require.NoError(t, h.Store("test", u))
+
+		items, err = h.Purge(false)
+		require.Len(t, items, 1)
+
+		// Remove the token
+		require.Error(t, h.Erase(u))
 
 		// No token
 		token, err = h.Get(u)

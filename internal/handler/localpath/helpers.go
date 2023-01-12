@@ -32,6 +32,5 @@ func preparePath(vaultAddr *url.URL, tokenDir string) (path string, err error) {
 	if path, err = getPath(tokenDir, vaultAddr); err != nil {
 		return path, err
 	}
-	err = localStorage(tokenDir)
-	return path, err
+	return path, localStorage(tokenDir)
 }
