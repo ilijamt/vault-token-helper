@@ -54,9 +54,11 @@ func TestLocalPath(t *testing.T) {
 		var items []handler.Data
 		items, err = h.List()
 		require.Len(t, items, 1)
+		require.NoError(t, err)
 
 		items, err = h.Purge(true)
 		require.Len(t, items, 1)
+		require.NoError(t, err)
 
 		// Remove the token
 		require.NoError(t, h.Erase(u))
@@ -66,6 +68,7 @@ func TestLocalPath(t *testing.T) {
 
 		items, err = h.Purge(false)
 		require.Len(t, items, 1)
+		require.NoError(t, err)
 
 		// Remove the token
 		require.Error(t, h.Erase(u))
