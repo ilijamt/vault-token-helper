@@ -11,7 +11,7 @@ For more information about what this is about you can see [Token Helpers](https:
 
 #### manually
 
-Download the pre-compiled binaries from the [releases](https://github.com/ilijamt/blacklist-checker/releases) page.
+Download the pre-compiled binaries from the [releases](https://github.com/ilijamt/vault-token-helper/releases) page.
 
 #### homebrew
 
