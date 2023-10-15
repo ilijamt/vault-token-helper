@@ -57,7 +57,7 @@ release:
     name: vault-token-helper
 
 brews:
-  - tap:
+  - repository:
       owner: ilijamt
       name: homebrew-tap
     folder: Formula
@@ -65,3 +65,19 @@ brews:
     description: A token helper is an external program that Vault calls to save, retrieve or erase a saved token.
     test: |
       system "#{bin}/vault-token-helper version"
+
+# chocolateys:
+#   - name: vault-token-helper
+#     owners: Ilija Matoski
+#     title: Vault Token Helper
+#     authors: Ilija Matoski
+#     project_url: https://github.com/ilijamt/vault-token-helper
+#     project_source_url: https://github.com/ilijamt/vault-token-helper
+#     bug_tracker_url: https://github.com/ilijamt/vault-token-helper/issues
+#     docs_url: https://github.com/ilijamt/vault-token-helper/blob/main/README.md
+#     summary: A token helper is an external program that Vault calls to manage tokens
+#     description: |
+#       {{ .ProjectName }} installer package
+#       A token helper is an external program that Vault calls to save, retrieve or erase a saved token.
+#     api_key: "{{ .Env.CHOCOLATEY_API_KEY }}"
+#     source_repo: "https://push.chocolatey.org"
